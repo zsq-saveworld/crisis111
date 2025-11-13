@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    dynamic:
+      primary: aiexam
+      datasource:
+        aiexam:
+          url: jdbc:postgresql://192.168.112.96:5432/postgres?serverTimezone=Asia/Shanghai
+          username: postgres
+          password: root1234
+        yjstation:
+          url: jdbc:oracle:thin:@192.168.112.71:1521/orcl
+          username: yjstation
+          password: yjstation
+#        base:
+#          url: jdbc:postgresql://192.168.110.96:5432/jl_platform?serverTimezone=Asia/Shanghai
+#          username: postgres
+#          password: root1234
+
+# mybatis plus 配置
+mybatis-plus:
+  configuration:
+    #    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    variables:
+
+
+jvlei:
+  ai:
+    crisis:
+      svcUrl: http://192.168.110.236:5000/usai_segment
+  platform:
+    server:
+      check-token-url: /dock/client/check
+      host: http://192.168.112.50:8080
+    client:
+      app-key: aiexam
+      secret-key: aiexam
+  settings:
+    enableRisDrugUpdate: true
+  web:
+    enableSwagger: true
+#  mybatis:
+#    dialect: postgresql
+  enable-scheduling: false
+  dicom:
+    scpAe: dcmqrscp
+    scpIp: 192.168.110.86
+    scpPort: 11110
+    localAe: localAe
+    localIp: 192.168.110.86
+    localPort: 11112
+    storePath: d:/dicomtest/

@@ -1,0 +1,169 @@
+# mybatis
+mybatis-plus:
+  mapper-locations: classpath:com/jvlei/**/mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.jvlei.**.entity,com.jvlei.**.dto, com.jvlei.**.dto.**,
+  #typeEnumsPackage: org.springblade.dashboard.entity.enums
+  # 全局配置
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    # 数据库配置
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"不操作", 2:"用户输入ID",3:"数字型snowflake", 4:"全局唯一ID UUID", 5:"字符串型snowflake";
+      id-type: auto
+      # 插入字段策略
+      insert-strategy: not_null
+      # 更新字段策略
+      update-strategy: not_null
+      # 查询字段策略
+      select-strategy: not_null
+      #驼峰下划线转换
+      table-underline: true
+      # 逻辑删除配置
+      # 逻辑删除全局值（1表示已删除，这也是Mybatis Plus的默认配置）
+      logic-delete-value: 1
+      # 逻辑未删除全局值（0表示未删除，这也是Mybatis Plus的默认配置）
+      logic-not-delete-value: 0
+  # MyBatis配置
+  configuration:
+    # 将下划线命名转换为驼峰命名
+    map-underscore-to-camel-case: true
+    # 是否启用缓存
+    cache-enabled: false
+    # 日志实现类
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 对于 null 值使用的 JDBC 类型
+    jdbc-type-for-null: 'null'
+    # 启用懒加载
+    lazy-loading-enabled: true
+
+# spring 配置
+spring:
+  # 数据源
+  datasource:
+    # Druid连接池配置
+    type: com.alibaba.druid.pool.DruidDataSource
+    # druid 数据源配置
+    druid:
+      # druid 状态视图 servlet 配置
+      stat-view-servlet:
+        # 是否启用 druid 状态视图
+        enabled: true
+        # URL 匹配模式
+        url-pattern: /druid/*
+        # 登录用户名
+        login-username: julei
+        # 登录密码
+        login-password: juleiPassw0rd
+      # 初始化
+      initial-size: 5
+      # 最小
+      min-idle: 5
+      # 最大连接
+      max-active: 20
+      # 最长等待
+      max-wait: 5000
+      # 周期性剔除长时间呆在池子里未被使用的空闲连接, 1 min 一次,单位毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间,单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # 设置连接在池中最大存活时长，超过上限才会被清理
+      max-evictable-idle-time-millis: 600000
+      # 验证连接是否可用，使用的SQL语句
+      validation-query: SELECT 1 from dual
+      # 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+      test-while-idle: true
+      # 借出连接时不要测试，否则很影响性能
+      test-on-borrow: false
+      # 指明是否在归还到池中前进行检验
+      test-on-return: false
+      # 是否启用预编译语句池，提高性能
+      pool-prepared-statements: true
+      # 每个连接最大预编译语句数
+      maxPool-prepared-statement-perConnectionSize: 20
+      # 启用过滤器
+      filters: stat,wall,slf4j
+      # 连接属性
+      connection-properties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      # web 统计过滤器
+      web-stat-filter:
+        # 是否启用
+        enabled: true
+        # 监控 URL
+        url-pattern: /*
+        # 排除特定文件类型和路径的监控
+        exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+    # druid 动态数据源配置
+    dynamic:
+      # 设置主数据源
+      primary: yjstation
+      # 数据源
+      datasource:
+        aiexam:
+          driver-class-name: org.postgresql.Driver
+          # druid 配置
+          druid:
+            initial-size: 5
+            min-idle: 5
+            max-active: 20
+            max-wait: 5000
+            # 周期性剔除长时间呆在池子里未被使用的空闲连接, 1 min 一次,单位毫秒
+            time-between-eviction-runs-millis: 60000
+            # 配置一个连接在池中最小生存的时间,单位是毫秒
+            min-evictable-idle-time-millis: 300000
+            # 设置连接在池中最大存活时长，超过上限才会被清理
+            max-evictable-idle-time-millis: 600000
+            # 验证连接是否可用，使用的SQL语句
+            validation-query: SELECT 1
+            # 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+            test-while-idle: true
+            # 借出连接时不要测试，否则很影响性能
+            test-on-borrow: false
+            # 指明是否在归还到池中前进行检验
+            test-on-return: false
+            # 是否启用预编译语句池，提高性能
+            pool-prepared-statements: true
+            # 每个连接最大预编译语句数
+            maxPool-prepared-statement-perConnectionSize: 20
+            # 启用过滤器
+            filters: stat,slf4j # wall
+            # 连接属性
+            connection-properties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+        # yjstation 医技主数据源名称
+        yjstation:
+          driver-class-name: oracle.jdbc.OracleDriver
+          # druid 配置
+          druid:
+            # 初始化
+            initial-size: 5
+            # 最小
+            min-idle: 5
+            # 最大连接
+            max-active: 20
+            # 最长等待
+            max-wait: 5000
+            # 周期性剔除长时间呆在池子里未被使用的空闲连接, 1 min 一次,单位毫秒
+            time-between-eviction-runs-millis: 60000
+            # 配置一个连接在池中最小生存的时间,单位是毫秒
+            min-evictable-idle-time-millis: 300000
+            # 设置连接在池中最大存活时长，超过上限才会被清理
+            max-evictable-idle-time-millis: 600000
+            # 验证连接是否可用，使用的SQL语句
+            validation-query: SELECT 1 from dual
+            # 连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
+            test-while-idle: true
+            # 借出连接时不要测试，否则很影响性能
+            test-on-borrow: false
+            # 指明是否在归还到池中前进行检验
+            test-on-return: false
+            # 是否启用预编译语句池，提高性能
+            pool-prepared-statements: true
+            # 每个连接最大预编译语句数
+            maxPool-prepared-statement-perConnectionSize: 20
+            # 启用过滤器
+            filters: stat,wall,slf4j
+            # 连接属性
+            connection-properties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+      # druid 配置严格模式
+      strict: false

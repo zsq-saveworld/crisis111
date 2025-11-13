@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: jl-intelij-crisis
+  pid:
+    file: jl-intelij-crisis.pid
+  profiles:
+    active: datasource, web, jvlei
