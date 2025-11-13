@@ -31,14 +31,5 @@ public class StationMsgResolver {
 
     }
 
-    public ExamPredictResult queryCrisisResult(String accnum) {
-        // 查询条件构造
-        QueryWrapper<ExamPredictResult> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("accnum", accnum);
-        queryWrapper.eq("predict_type", "crisis"); // 假设有预测类型字段区分危急值
-
-        // 执行查询
-        return examPredictResultMapper.selectOne(queryWrapper);
-    }
 
 }

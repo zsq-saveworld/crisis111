@@ -20,8 +20,6 @@ public class StationMsgController {
         return R.data(stationMsgResolver.resolveExamDone(exam));
     }
 
-    @GetMapping("/crisis/{accnum}")
-    public R selectCrisis(@PathVariable String accnum){
-        return R.data(stationMsgResolver.queryCrisisResult(accnum));
-    }
+
+
 }
